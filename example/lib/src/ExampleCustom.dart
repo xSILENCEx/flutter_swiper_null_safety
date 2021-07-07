@@ -46,6 +46,7 @@ class _ExampleCustomState extends State<ExampleCustom> {
   late CustomLayoutOption customLayoutOption;
 
   Widget _buildItem(BuildContext context, int index) {
+    print('build item $index');
     return ClipRRect(
       borderRadius: new BorderRadius.all(new Radius.circular(_radius)),
       child: new Image.asset(
@@ -88,50 +89,44 @@ class _ExampleCustomState extends State<ExampleCustom> {
 // maintain the index
 
   Widget buildSwiper() {
-    return Stack(
-      children: [
-        new Swiper(
-          onTap: (int index) {
-            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text("New page"),
-                ),
-                body: Container(),
-              );
-            }));
-          },
-          customLayoutOption: customLayoutOption,
-          fade: _fade,
-          reverse: true,
-          index: _currentIndex,
-          onIndexChanged: (int index) {
-            print('current index $index');
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          curve: _curve,
-          scale: _scale,
-          itemWidth: 300.0,
-          controller: _controller,
-          layout: _layout,
-          outer: _outer,
-          itemHeight: 200.0,
-          viewportFraction: _viewportFraction,
-          autoplayDelay: _autoplayDely,
-          loop: _loop,
-          autoplay: _autoplay,
-          itemBuilder: _buildItem,
-          itemCount: _itemCount,
-          scrollDirection: _scrollDirection,
-          indicatorLayout: PageIndicatorLayout.COLOR,
-          autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
-          pagination: new SwiperPagination(builder: const DotSwiperPaginationBuilder(size: 20.0, activeSize: 20.0, space: 10.0)),
-        ),
-        Container(width: 138, color: Colors.red),
-        Align(alignment: Alignment.centerRight, child: Container(width: 138, color: Colors.red)),
-      ],
+    return new Swiper(
+      onTap: (int index) {
+        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("New page"),
+            ),
+            body: Container(),
+          );
+        }));
+      },
+      customLayoutOption: customLayoutOption,
+      fade: _fade,
+      reverse: true,
+      index: _currentIndex,
+      onIndexChanged: (int index) {
+        print('current index $index');
+        // setState(() {
+        _currentIndex = index;
+        // });
+      },
+      curve: _curve,
+      scale: _scale,
+      itemWidth: 800.0,
+      controller: _controller,
+      layout: _layout,
+      outer: _outer,
+      itemHeight: 200.0,
+      viewportFraction: _viewportFraction,
+      autoplayDelay: _autoplayDely,
+      loop: _loop,
+      autoplay: _autoplay,
+      itemBuilder: _buildItem,
+      itemCount: _itemCount,
+      scrollDirection: _scrollDirection,
+      indicatorLayout: PageIndicatorLayout.COLOR,
+      autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
+      pagination: new SwiperPagination(builder: const DotSwiperPaginationBuilder(size: 20.0, activeSize: 20.0, space: 10.0)),
     );
   }
 
