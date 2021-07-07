@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'src/ExampleCustom.dart';
-import 'src/config.dart';
-import 'src/ExampleSwiperInScrollView.dart';
 
 import 'package:flutter/cupertino.dart';
 

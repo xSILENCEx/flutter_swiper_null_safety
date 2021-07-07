@@ -13,12 +13,7 @@ class FormWidget extends StatelessWidget {
     return new Padding(
         padding: new EdgeInsets.all(5.0),
         child: new Row(
-          children: <Widget>[
-            new Text(label, style: new TextStyle(fontSize: 14.0)),
-            new Expanded(
-                child:
-                    new Align(alignment: Alignment.centerRight, child: child))
-          ],
+          children: <Widget>[new Text(label, style: new TextStyle(fontSize: 14.0)), new Expanded(child: new Align(alignment: Alignment.centerRight, child: child))],
         ));
   }
 }
@@ -26,14 +21,10 @@ class FormWidget extends StatelessWidget {
 class FormSelect<T> extends StatefulWidget {
   final String placeholder;
   final ValueChanged<T> valueChanged;
-  final List<dynamic> values;
-  final dynamic value;
+  final List<T> values;
+  final T? value;
 
-  FormSelect(
-      {required this.placeholder,
-      required this.valueChanged,
-      this.value,
-      required this.values});
+  FormSelect({required this.placeholder, required this.valueChanged, this.value, required this.values});
 
   @override
   State<StatefulWidget> createState() {
@@ -63,9 +54,7 @@ class _FormSelectState extends State<FormSelect> {
 
     return new Container(
       child: new InkWell(
-        child: new Text(_selectedIndex < 0
-            ? placeholder
-            : values[_selectedIndex].toString()),
+        child: new Text(_selectedIndex < 0 ? placeholder : values[_selectedIndex].toString()),
         onTap: () {
           _selectedIndex = 0;
           showBottomSheet(
@@ -92,8 +81,7 @@ class _FormSelectState extends State<FormSelect> {
                         child: new RaisedButton(
                           onPressed: () {
                             if (_selectedIndex >= 0) {
-                              widget
-                                  .valueChanged(widget.values[_selectedIndex]);
+                              widget.valueChanged(widget.values[_selectedIndex]);
                             }
 
                             setState(() {});
@@ -120,12 +108,7 @@ class NumberPad extends StatelessWidget {
   final num min;
   final ValueChanged<num> onChangeValue;
 
-  NumberPad(
-      {required this.number,
-      required this.step,
-      required this.onChangeValue,
-      required this.max,
-      required this.min});
+  NumberPad({required this.number, required this.step, required this.onChangeValue, required this.max, required this.min});
 
   void onAdd() {
     onChangeValue(number + step > max ? max : number + step);

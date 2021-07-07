@@ -57,29 +57,21 @@ class _ExampleCustomState extends State<ExampleCustom> {
 
   @override
   void didUpdateWidget(ExampleCustom oldWidget) {
-    customLayoutOption = new CustomLayoutOption(startIndex: -1, stateCount: 3)
-        .addRotate([-45.0 / 180, 0.0, 45.0 / 180]).addTranslate([
-      new Offset(-370.0, -40.0),
-      new Offset(0.0, 0.0),
-      new Offset(370.0, -40.0)
-    ]);
+    customLayoutOption =
+        new CustomLayoutOption(startIndex: -1, stateCount: 3).addRotate([-45.0 / 180, 0.0, 45.0 / 180]).addTranslate([new Offset(-370.0, -40.0), new Offset(0.0, 0.0), new Offset(370.0, -40.0)]);
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    customLayoutOption = new CustomLayoutOption(startIndex: -1, stateCount: 3)
-        .addRotate([-25.0 / 180, 0.0, 25.0 / 180]).addTranslate([
-      new Offset(-350.0, 0.0),
-      new Offset(0.0, 0.0),
-      new Offset(350.0, 0.0)
-    ]);
+    customLayoutOption =
+        new CustomLayoutOption(startIndex: -1, stateCount: 3).addRotate([-25.0 / 180, 0.0, 25.0 / 180]).addTranslate([new Offset(-350.0, 0.0), new Offset(0.0, 0.0), new Offset(350.0, 0.0)]);
     _fade = 1.0;
     _currentIndex = 0;
     _curve = Curves.ease;
     _scale = 0.8;
     _controller = new SwiperController();
-    _layout = SwiperLayout.TINDER;
+    _layout = SwiperLayout.STACK;
     _radius = 10.0;
     _padding = 0.0;
     _loop = true;
@@ -98,8 +90,7 @@ class _ExampleCustomState extends State<ExampleCustom> {
   Widget buildSwiper() {
     return new Swiper(
       onTap: (int index) {
-        Navigator.of(context)
-            .push(new MaterialPageRoute(builder: (BuildContext context) {
+        Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
               title: Text("New page"),
@@ -110,8 +101,10 @@ class _ExampleCustomState extends State<ExampleCustom> {
       },
       customLayoutOption: customLayoutOption,
       fade: _fade,
+      reverse: true,
       index: _currentIndex,
       onIndexChanged: (int index) {
+        print('current index $index');
         setState(() {
           _currentIndex = index;
         });
@@ -132,9 +125,7 @@ class _ExampleCustomState extends State<ExampleCustom> {
       scrollDirection: _scrollDirection,
       indicatorLayout: PageIndicatorLayout.COLOR,
       autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
-      pagination: new SwiperPagination(
-          builder: const DotSwiperPaginationBuilder(
-              size: 20.0, activeSize: 20.0, space: 10.0)),
+      pagination: new SwiperPagination(builder: const DotSwiperPaginationBuilder(size: 20.0, activeSize: 20.0, space: 10.0)),
     );
   }
 
@@ -146,8 +137,7 @@ class _ExampleCustomState extends State<ExampleCustom> {
     return new Column(children: <Widget>[
       new Container(
         color: Colors.black87,
-        child: new SizedBox(
-            height: 300.0, width: double.infinity, child: buildSwiper()),
+        child: new SizedBox(height: 300.0, width: double.infinity, child: buildSwiper()),
       ),
       new Expanded(
           child: new ListView(
@@ -187,12 +177,7 @@ class _ExampleCustomState extends State<ExampleCustom> {
               child: new FormSelect<SwiperLayout>(
                 placeholder: "Select layout",
                 value: _layout,
-                values: [
-                  SwiperLayout.DEFAULT,
-                  SwiperLayout.STACK,
-                  SwiperLayout.TINDER,
-                  SwiperLayout.CUSTOM
-                ],
+                values: [SwiperLayout.DEFAULT, SwiperLayout.STACK, SwiperLayout.TINDER, SwiperLayout.CUSTOM],
                 valueChanged: (SwiperLayout value) {
                   _layout = value;
                   setState(() {});
@@ -200,37 +185,25 @@ class _ExampleCustomState extends State<ExampleCustom> {
               )),
           new FormWidget(
             label: "scrollDirection",
-            child: new Switch(
-                value: _scrollDirection == Axis.horizontal,
-                onChanged: (bool value) => setState(() => _scrollDirection =
-                    value ? Axis.horizontal : Axis.vertical)),
+            child: new Switch(value: _scrollDirection == Axis.horizontal, onChanged: (bool value) => setState(() => _scrollDirection = value ? Axis.horizontal : Axis.vertical)),
           ),
           new FormWidget(
             label: "autoplayDisableOnInteractio",
-            child: new Switch(
-                value: _autoplayDisableOnInteraction,
-                onChanged: (bool value) =>
-                    setState(() => _autoplayDisableOnInteraction = value)),
+            child: new Switch(value: _autoplayDisableOnInteraction, onChanged: (bool value) => setState(() => _autoplayDisableOnInteraction = value)),
           ),
           //Pannel Begin
           new FormWidget(
             label: "loop",
-            child: new Switch(
-                value: _loop,
-                onChanged: (bool value) => setState(() => _loop = value)),
+            child: new Switch(value: _loop, onChanged: (bool value) => setState(() => _loop = value)),
           ),
           new FormWidget(
             label: "outer",
-            child: new Switch(
-                value: _outer,
-                onChanged: (bool value) => setState(() => _outer = value)),
+            child: new Switch(value: _outer, onChanged: (bool value) => setState(() => _outer = value)),
           ),
           //Pannel Begin
           new FormWidget(
             label: "autoplay",
-            child: new Switch(
-                value: _autoplay,
-                onChanged: (bool value) => setState(() => _autoplay = value)),
+            child: new Switch(value: _autoplay, onChanged: (bool value) => setState(() => _autoplay = value)),
           ),
 
           new FormWidget(
@@ -318,15 +291,8 @@ class _ExampleCustomState extends State<ExampleCustom> {
               label: "curve",
               child: new FormSelect<Curve>(
                   placeholder: "Select curve",
-                  value: _layout,
-                  values: [
-                    Curves.easeInOut,
-                    Curves.ease,
-                    Curves.bounceInOut,
-                    Curves.bounceOut,
-                    Curves.bounceIn,
-                    Curves.fastOutSlowIn
-                  ],
+                  value: _curve,
+                  values: [Curves.easeInOut, Curves.ease, Curves.bounceInOut, Curves.bounceOut, Curves.bounceIn, Curves.fastOutSlowIn],
                   valueChanged: (Curve value) {
                     _curve = value;
                     setState(() {});
